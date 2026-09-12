@@ -1,0 +1,6 @@
+proband_id,chrom_1,pos_1,ref_1,alt_1,chrom_2,pos_2,ref_2,alt_2,epcr,finding_type,notes
+PROBAND01,chr15,40209701,T,G,chr15,40220612,T,G,0.95,primary,"BUB1B compound het: p.Leu737Ter (ClinVar P/LP, MVA1) + p.Asn1002Lys; phase unresolved by short reads (10.9 kb apart)"
+PROBAND01,chr3,20174258,T,C,,,,,0.08,primary,"SGO1 missense, rare, no ClinVar entry"
+PROBAND01,chr15,40216470,A,G,,,,,0.05,primary,"BUB1B deep intronic, absent from gnomAD; splicing impact not yet assessed"
+PROBAND01,chr7,142750561,C,T,,,,,0.02,secondary,"PRSS1 known P/LP allele, heterozygous; gene associated with dominant hereditary pancreatitis. Unrelated to primary phenotype; flagged for clinical review."
+PROBAND01,chr22,20996720,C,G,,,,,0.01,secondary,"LZTR1 known P/LP allele, heterozygous; gene associated with dominant schwannomatosis/Noonan spectrum. Unrelated to primary phenotype; flagged for clinical review."

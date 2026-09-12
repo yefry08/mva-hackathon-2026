@@ -1,0 +1,31 @@
+Creative Commons Attribution 4.0 International (CC BY 4.0)
+
+Copyright (c) 2026 los contribuyentes de este repositorio.
+
+Este trabajo esta licenciado bajo la Licencia Creative Commons Atribucion 4.0
+Internacional. Eres libre de compartir y adaptar el material para cualquier
+proposito, incluso comercial, siempre que des credito adecuado, enlaces a la
+licencia e indiques si se hicieron cambios.
+
+Texto legal completo: https://creativecommons.org/licenses/by/4.0/legalcode
+Resumen legible: https://creativecommons.org/licenses/by/4.0/
+
+---
+
+ALCANCE DE ESTA LICENCIA
+
+Cubre el codigo, la documentacion y los informes de este repositorio.
+
+NO cubre, porque no estan aqui y no pueden estarlo, los datos genomicos del
+hackathon. Esos datos son de acceso controlado, su redistribucion esta prohibida
+por las reglas del hackathon, y deben borrarse de todos los sistemas dentro de
+los 30 dias del cierre.
+
+Los recursos publicos de terceros que el pipeline consulta (MANE, ClinVar,
+gnomAD, UniProt, UCSC, GIAB) conservan cada uno sus propias licencias y
+condiciones de uso.
+
+CITAS Y ATRIBUCION
+
+Cualquier publicacion derivada debe incluir el agradecimiento indicado en el
+README, requerido por las reglas del hackathon.
