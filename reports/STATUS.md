@@ -1,5 +1,9 @@
 # STATUS
 
+**Repositorio público:** https://github.com/yefry08/mva-hackathon-2026
+(commit inicial `daed07a`, 45 archivos, 0 archivos genómicos verificado contra
+la API de GitHub tras publicar).
+
 Actualizado: 2026-09-12. Lo reescribe el agente de convergencia cada 2h una vez que
 arranque la corrida; por ahora lo mantiene el orquestador a mano.
 
