@@ -197,6 +197,21 @@ antimitóticos en general. Aparecen en toda búsqueda de aneuploidía porque se 
 **Pendiente y declarado:** Robin, LINCS/CMap y DepMap no se corrieron por falta de
 credenciales.
 
+## Barrido genomico de LoF bialelica (sin ClinVar)
+
+`lof_genomewide.py` traduce en local las 23.041 variantes codificantes del genoma
+contra su transcrito MANE y marca las truncantes. 252 genes con alguna LoF, 104
+con LoF bialelica potencial, y tras filtrar por frecuencia en gnomAD quedan **5**:
+AGAP3, SERPINA1, ADAMTS1, HLA-DQA1 y POU6F2. Ninguno compite con BUB1B: cuatro
+caen en regiones donde el alineamiento de lecturas cortas falla (paralogos, HLA)
+o presentan conteos implausibles de truncantes raras, y POU6F2 se anota solo
+porque tiene mutaciones germinales descritas en Wilms (PMID 15459955), que forma
+parte del espectro tumoral de MVA.
+
+Limite declarado: este barrido solo ve LoF mas LoF, asi que el propio candidato de
+BUB1B (truncante mas missense) no aparece en el. Complementa al analisis por
+panel; no lo sustituye.
+
 ## Bloqueos
 
 1. **API key comercial de Anthropic** en `C:\mva\.env`. Sin eso, ningún agente lee

@@ -79,10 +79,40 @@ genotipos P/LP en todo el genoma, ninguno homocigoto**: BUB1B, FLG, GNRHR, HK1,
 LZTR1, PRSS1 y RBM8A. BUB1B es el único que además tiene una segunda variante
 rara codificante en el mismo gen.
 
-*Límite:* este ranking ciego se apoya en ClinVar, así que solo encuentra lo ya
-clasificado. Una variante truncante nueva en un gen sin entradas no aparecería. Un
-ranking ciego completo exige anotación de consecuencia y frecuencia a escala
-genómica, que no se corrió.
+*Límite de ese ranking:* se apoya en ClinVar, así que solo encuentra lo ya
+clasificado. Una variante truncante nueva en un gen sin entradas no aparecería.
+Ese hueco se cierra por el otro lado con el barrido siguiente.
+
+### Barrido genómico de pérdida de función bialélica, sin ClinVar
+
+`lof_genomewide.py` traduce **en local** cada variante codificante del genoma
+contra su transcrito MANE Select y marca las de pérdida de función: codón de
+parada prematuro, indel que rompe el marco y sitio de splicing canónico. Bajo
+herencia recesiva, un candidato tiene que ser homocigoto o llevar dos alelos.
+
+- 23.041 variantes codificantes evaluadas, 19.407 transcritos.
+- 252 genes con alguna LoF; **104** con LoF bialélica potencial.
+- Tras filtrar por frecuencia (gnomAD, AF ≤ 0.001): **5 genes**.
+
+Los cinco, y por qué ninguno compite:
+
+| Gen | Observado | Lectura |
+|---|---|---|
+| AGAP3 | 1 frameshift homocigoto | pertenece a una familia con múltiples parálogos en regiones duplicadas; en el conteo sin filtrar aparecía con 3 frameshifts homocigotos, que es firma de error de mapeo, no de biología |
+| SERPINA1 | 4 frameshifts raros en het | implausible: los alelos clásicos de deficiencia de alfa-1 antitripsina son missense (PMID 20301692). Cuatro truncantes raros en un mismo gen apuntan a artefacto |
+| HLA-DQA1 | 2 frameshifts | región HLA, hiperpolimórfica: el alineamiento de lecturas cortas falla de forma sistemática |
+| ADAMTS1 | 2 frameshifts | sin asociación recesiva mendeliana que encaje con el fenotipo |
+| POU6F2 | 2 frameshifts | hay mutaciones germinales descritas en tumores de Wilms con pérdida de heterocigosidad (PMID 15459955). Merece anotarse porque el espectro tumoral de MVA incluye Wilms, pero no es causa de MVA y sin BAM no se puede validar |
+
+Sin datos de alineamiento no se pueden inspeccionar visualmente, así que estas
+lecturas son inferencias sobre el contexto genómico, no verificaciones.
+
+**Límite de este barrido, que es importante:** solo detecta LoF más LoF. El propio
+candidato de BUB1B, que es una truncante más un missense, **no aparece aquí por
+diseño**. Los dos barridos son complementarios: uno cubre lo ya clasificado, otro
+cubre lo truncante no clasificado, y ninguno cubre por sí solo un compuesto de
+truncante más missense en un gen sin entradas. Ese hueco queda abierto y se
+declara.
 
 ## Clasificación ACMG/AMP
 
