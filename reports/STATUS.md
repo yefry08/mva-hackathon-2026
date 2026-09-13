@@ -118,10 +118,11 @@ encuentra 7 genotipos P/LP, ninguno homocigoto: BUB1B, FLG, GNRHR, HK1, LZTR1,
 PRSS1, RBM8A. BUB1B es el único que además tiene una segunda variante rara
 codificante en el mismo gen. El hallazgo no depende del prior de MVA.
 
-*Límite del ranking ciego:* se apoya en ClinVar, así que solo encuentra lo ya
-clasificado. Una variante truncante nueva en un gen sin entradas no aparecería.
-Un ranking ciego completo exige anotación de frecuencia y consecuencia a escala
-genómica, que todavía no se corrió.
+*Límite de ese ranking:* se apoya en ClinVar, así que solo encuentra lo ya
+clasificado. Ese hueco se cerró por el otro lado con el barrido genómico de LoF
+bialélica que hay más abajo, que no usa ClinVar en absoluto. Lo que queda sin
+cubrir por ninguno de los dos es un compuesto de truncante más missense en un gen
+sin entradas en ClinVar, y así se declara.
 
 **Lo que no está resuelto: la fase.** Cuantificado, no supuesto. Los bloques de
 fase PID de este VCF en chr15 tienen mediana de 8 pb, p99 de 82 pb y **máximo de
