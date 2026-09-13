@@ -111,8 +111,40 @@ lecturas son inferencias sobre el contexto genómico, no verificaciones.
 candidato de BUB1B, que es una truncante más un missense, **no aparece aquí por
 diseño**. Los dos barridos son complementarios: uno cubre lo ya clasificado, otro
 cubre lo truncante no clasificado, y ninguno cubre por sí solo un compuesto de
-truncante más missense en un gen sin entradas. Ese hueco queda abierto y se
-declara.
+truncante más missense en un gen sin entradas. Ese hueco se cierra con el
+barrido siguiente.
+
+### Barrido genómico ciego de compuestos, sin panel y sin ClinVar
+
+`compound_genomewide.py` no sabe nada de MVA ni del checkpoint mitótico. Traduce
+en local cada variante codificante del genoma y busca genes que carguen, todo raro
+en gnomAD, una truncante homocigota, dos truncantes, o **una truncante más un
+missense**, que es la arquitectura del candidato.
+
+- 5.584 genes con variantes codificantes no sinónimas.
+- 252 con al menos una truncante, que es condición necesaria de los tres patrones.
+- **8 genes** con patrón recesivo compatible y todas las variantes raras.
+- **3 genes** con el patrón exacto truncante más missense: SLC25A5, BUB1B y
+  HLA-DRB1.
+
+| Gen | Truncantes | Missense | Por qué se descarta o se sostiene |
+|---|---|---|---|
+| SLC25A5 | 1 | **9** | está en el **cromosoma X** y el paciente es genéticamente varón: tiene un solo X, así que un heterocigoto compuesto es imposible. Nueve missense raros en un gen son además firma de mapeo erróneo |
+| HLA-DRB1 | 1 | 1 | región HLA, donde el alineamiento de lecturas cortas falla por sistema |
+| **BUB1B** | **1** | **1** | se sostiene |
+
+**BUB1B aparece sin panel, sin ClinVar y sin ninguna pista sobre la enfermedad.**
+
+Una regularidad que merece anotarse: los artefactos se delatan por conteos
+implausibles. SERPINA1 carga 4 truncantes y 10 missense raros; SLC25A5, 9 missense.
+BUB1B carga exactamente lo que la biología predice para un compuesto: dos
+variantes, una por alelo.
+
+**Lo que este barrido todavía no cubre:** exige al menos una truncante, así que un
+compuesto de dos missense en un gen sin entradas en ClinVar seguiría sin
+detectarse. Es el último hueco del ranking ciego y queda declarado. Y la fase
+sigue sin resolverse: el barrido encuentra el patrón, no demuestra la
+configuración en trans.
 
 ## Clasificación ACMG/AMP
 

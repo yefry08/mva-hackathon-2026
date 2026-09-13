@@ -119,10 +119,15 @@ PRSS1, RBM8A. BUB1B es el único que además tiene una segunda variante rara
 codificante en el mismo gen. El hallazgo no depende del prior de MVA.
 
 *Límite de ese ranking:* se apoya en ClinVar, así que solo encuentra lo ya
-clasificado. Ese hueco se cerró por el otro lado con el barrido genómico de LoF
-bialélica que hay más abajo, que no usa ClinVar en absoluto. Lo que queda sin
-cubrir por ninguno de los dos es un compuesto de truncante más missense en un gen
-sin entradas en ClinVar, y así se declara.
+clasificado. Ese hueco se cerró con dos barridos que no usan ClinVar ni panel.
+
+**Ranking ciego definitivo** (`compound_genomewide.py`): sobre todo el genoma, sin
+panel ni ClinVar, 3 genes cargan una truncante rara más un missense raro:
+SLC25A5, BUB1B y HLA-DRB1. SLC25A5 está en el cromosoma X y el paciente es varón,
+así que un compuesto es imposible; HLA-DRB1 está en la región HLA. **BUB1B es el
+único que se sostiene**, y es también el único con el conteo que predice la
+biología: una variante por alelo. Hueco que sigue declarado: un compuesto de dos
+missense en un gen sin entradas en ClinVar.
 
 **Lo que no está resuelto: la fase.** Cuantificado, no supuesto. Los bloques de
 fase PID de este VCF en chr15 tienen mediana de 8 pb, p99 de 82 pb y **máximo de
