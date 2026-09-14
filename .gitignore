@@ -1,6 +1,7 @@
-data/
 work/
-work_hg002/
+work_*/
+work*/
+data/
 ref/
 scale/
 logs/

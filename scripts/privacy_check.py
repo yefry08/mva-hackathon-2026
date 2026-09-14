@@ -125,6 +125,43 @@ def main() -> int:
             fallos.append("%s contiene %s" % (f, ", ".join(sorted(set(hits)))))
     print("   %d archivos de texto revisados" % revisados)
 
+    # 5. contenido de TODO el historial, no solo del estado actual.
+    # El paso 2 solo mira extensiones. Un .tsv con coordenadas del paciente,
+    # commiteado y borrado en el commit siguiente, seguiria publico en el
+    # historial y ese paso no lo veria. Esto ya paso una vez, con datos de
+    # controles publicos que se colaron por un gate saltado.
+    print("5. contenido del historial completo:")
+    CONTROLES_PUBLICOS = re.compile(r"^work_hg00\d/")
+    vistos, n_blobs = set(), 0
+    for commit in git("rev-list", "--all").split():
+        for linea in git("ls-tree", "-r", commit).splitlines():
+            try:
+                meta, ruta = linea.split("\t", 1)
+                blob = meta.split()[2]
+            except (ValueError, IndexError):
+                continue
+            if blob in vistos or Path(ruta).suffix.lower() not in TEXT_EXT:
+                continue
+            vistos.add(blob)
+            n_blobs += 1
+            contenido = git("cat-file", "-p", blob)
+            hits = [label for rx, label in PATTERNS if rx.search(contenido)]
+            hits += ["identificador de muestra" for rx in id_pats if rx.search(contenido)]
+            if not hits:
+                continue
+            if "identificador de muestra" in hits:
+                fallos.append("historial %s: %s contiene identificador de muestra" % (commit[:7], ruta))
+            elif ruta.startswith(("submissions/", "tests/")):
+                pass                                  # excepciones declaradas arriba
+            elif CONTROLES_PUBLICOS.match(ruta):
+                avisos.append("historial %s: %s (genoma publico GIAB, no del paciente)"
+                              % (commit[:7], ruta))
+            else:
+                fallos.append("historial %s: %s contiene %s"
+                              % (commit[:7], ruta, ", ".join(sorted(set(hits)))))
+    print("   %d versiones de archivo revisadas en %d commits"
+          % (n_blobs, len(git("rev-list", "--all").split())))
+
     print()
     if avisos:
         print("AVISOS (revisar a mano, no bloquean):")
