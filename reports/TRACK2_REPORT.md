@@ -63,6 +63,8 @@ alta en las dos llamadas (GQ 99).
    extrapolar de una célula seleccionada por tolerar aneuploidía a un tejido en
    desarrollo es un salto que nombramos cada vez que lo damos.
 
+![Histograma logarítmico de los bloques de fase del cromosoma 15: el más largo mide 206 pares de bases y las dos variantes de BUB1B están a 10.911, fuera del alcance de cualquier lectura](figures/fig2_fase.svg)
+
 ### Control de calidad del propio método
 
 Se documentan dos errores encontrados y corregidos durante el análisis —un test
@@ -151,36 +153,44 @@ Tres aportes metodológicos que sobreviven al caso concreto:
 
 Demostrada corriendo, no prometida. Detalle en `SCALABILITY.md`.
 
-El pipeline completo se ejecutó sobre **HG002 (GIAB)**, un genoma público de un
-adulto sano, cambiando solo el VCF de entrada y el directorio de salida. Ningún
-umbral, ningún parámetro, ningún criterio se ajustó.
+El pipeline completo se ejecutó sobre **tres genomas públicos de adultos sanos**
+de GIAB, no emparentados y de tres ascendencias (askenazí, europea y china),
+cambiando solo el VCF de entrada y el directorio de salida. Ningún umbral, ningún
+parámetro, ningún criterio se ajustó.
 
-| | Paciente | HG002 |
-|---|---|---|
-| Raras o ausentes en el panel | 44 | **45** |
-| Genes con 2 o más raras | 14 | 10 |
-| Genes con al menos una rara codificante | 2 | **0** |
-| Coincidencias P/LP en ClinVar | 1 | **0** |
-| Candidato final | BUB1B | **ninguno** |
+![Cuatro paneles que comparan al paciente con tres genomas sanos. Variantes raras y genes con una rara codificante no separan al paciente; solo él tiene dos raras codificantes en un mismo gen y una patogénica exacta en ClinVar](figures/fig4_controles.svg)
 
-El pipeline no fabrica un diagnóstico cuando no lo hay.
+| | Paciente | HG002 | HG001 | HG005 |
+|---|---|---|---|---|
+| Raras o ausentes en el panel | 44 | 45 | 35 | 51 |
+| Genes con al menos una rara codificante | 2 | 0 | 1 | **2** |
+| Genes con 2 o más raras codificantes | **1** | 0 | 0 | 0 |
+| Coincidencias P/LP en ClinVar | **1** | 0 | 0 | 0 |
+| Candidato final | BUB1B | **ninguno** | **ninguno** | **ninguno** |
 
-Y el control enseña algo sobre el método que no se ve mirando solo al paciente:
-un adulto sano carga **45 variantes raras** en genes del checkpoint mitótico, una
-más que el niño. A ese nivel los dos genomas son indistinguibles. Toda la
-discriminación vive en la anotación de consecuencia y en el cruce con ClinVar. Un
-pipeline que se detuviera en el filtro de frecuencia habría entregado 14 genes
-candidatos para el paciente y 10 para una persona sana. **El esfuerzo va en la
-anotación funcional, no en afinar el umbral de frecuencia.**
+El pipeline no fabrica un diagnóstico cuando no lo hay, en ninguno de los tres.
+
+Los controles enseñan algo que no se ve mirando solo al paciente, y además
+corrigen lo que se afirmó con uno solo. A nivel de variante rara los cuatro genomas
+son indistinguibles: 44 en el paciente, entre 35 y 51 en los controles. Con un
+único control parecía que tener una variante rara codificante ya discriminaba;
+**HG005 tiene dos, igual que el paciente.** Lo que discrimina es la conjunción de
+dos variantes raras codificantes en el mismo gen con patogenicidad conocida. **El
+esfuerzo va en la anotación funcional y el modelo de herencia, no en afinar el
+umbral de frecuencia.**
+
+Los controles también destaparon un defecto real del pipeline —un fallo de red
+que se convertía en silencio en "variante rara"—, ya corregido y documentado en
+`SCALABILITY.md`. El hallazgo del paciente no estaba afectado.
 
 Requisitos para reutilizarlo: Python de la biblioteca estándar, un portátil de 4
 núcleos y 8 GB de RAM. Sin nube, sin contenedores, sin GPU. Coste de cómputo: 0
 dólares. Un laboratorio sin infraestructura puede correrlo sobre el genoma de su
 paciente sin que los datos salgan de su máquina.
 
-**Límites de la demostración:** un solo control no estima una tasa de falsos
-positivos; HG002 es un adulto sano, no un caso sin diagnosticar; y se probó la
-generalización a otro individuo, no a otra enfermedad.
+**Límites de la demostración:** tres controles no estiman con precisión una tasa
+de falsos positivos; son adultos sanos, no casos sin diagnosticar; y se probó la
+generalización a otros individuos y ascendencias, no a otra enfermedad.
 
 ---
 

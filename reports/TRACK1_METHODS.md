@@ -135,6 +135,8 @@ missense**, que es la arquitectura del candidato.
 
 **BUB1B aparece sin panel, sin ClinVar y sin ninguna pista sobre la enfermedad.**
 
+![Embudo de siete etapas: de 5.012.204 variantes a 23.041 codificantes, 5.584 genes con variantes no sinónimas, 252 con al menos una truncante, 8 con patrón recesivo raro, 3 con truncante más missense, y un único gen que se sostiene, BUB1B](figures/fig1_embudo_ciego.svg)
+
 Una regularidad que merece anotarse: los artefactos se delatan por conteos
 implausibles. SERPINA1 carga 4 truncantes y 10 missense raros; SLC25A5, 9 missense.
 BUB1B carga exactamente lo que la biología predice para un compuesto: dos
@@ -173,11 +175,15 @@ par de este experimento puede abarcar ambas posiciones: la configuración en tra
 es una inferencia, no una observación. Lo resolverían genotipar a los padres,
 lectura larga o PCR de alelo específico.
 
+![Histograma logarítmico de los 7.608 bloques de fase del cromosoma 15: casi todos miden menos de 100 pares de bases y el más largo 206; una línea marca la distancia de 10.911 pares de bases entre las dos variantes de BUB1B, 53 veces más lejos](figures/fig2_fase.svg)
+
 **Aneuploidía.** El barrido de BAF no detecta eventos en mosaico ni a escala de
 cromosoma ni segmentaria a 10 Mb. A 44x y con ~150 heterocigotos por ventana, el
 método ve fracciones celulares por encima de 10-15%. La aneuploidía variegada se
 documenta por cariotipo en células cultivadas; su ausencia en el WGS de sangre no
 contradice el diagnóstico, y el límite de detección se reporta en vez de omitirse.
+
+![Exceso de dispersión del balance alélico en 293 ventanas autosómicas de 10 Mb: casi todas en torno a 1; 34 picos aislados sobre el umbral de 1,25, sin ningún segmento de tres ventanas seguidas](figures/fig3_baf_genoma.svg)
 
 **Splicing.** El cribado propio de sitios crípticos es negativo en las tres
 variantes de BUB1B, con tasa de fondo medida entre 6.5% y 7.9%. No sustituye a
@@ -188,9 +194,11 @@ una región sin cobertura no produce líneas y es invisible. TRIP13, uno de los
 genes MVA, aparece con profundidad media de 20.7x frente a 44x del genoma, así
 que "no hay variantes en TRIP13" no es concluyente.
 
-## Dos errores de método, encontrados y corregidos
+## Cuatro errores de método, encontrados y corregidos
 
-Se documentan porque el proceso importa tanto como el resultado.
+Se documentan porque el proceso importa tanto como el resultado. Ninguno cambió el
+hallazgo del paciente; los cuatro habrían podido cambiar la conclusión en otro
+caso.
 
 1. **Test de lóbulos de BAF.** La primera versión partía la distribución en 0.5 y
    llamaba lóbulos a las medianas de cada mitad. Eso devuelve dos lóbulos incluso
@@ -203,6 +211,18 @@ Se documentan porque el proceso importa tanto como el resultado.
    cambio de base toca dos dinucleótidos y cinco de dieciséis están en la lista,
    ese test se dispara en más de la mitad de las variantes al azar. Sustituido por
    dinucleótido más consenso, con nulo empírico de 2000 sustituciones.
+3. **Un fallo de red se convertía en variante rara.** Los tres scripts que
+   consultan gnomAD capturaban el error de red, lo avisaban por la salida de
+   errores y seguían; cada variante del gen quedaba "ausente en gnomAD", es decir,
+   rara. Lo delataron dos genomas sanos de control, que salieron con el 76% de sus
+   variantes "raras". Corregido con reintentos, consultas que solo cuentan si
+   terminan completas, una clase `sin_anotacion` que nunca cuenta como rara, y
+   código de error de salida. Todos los barridos del paciente se repitieron con la
+   corrección y dan el mismo resultado.
+4. **El checker de privacidad era ciego a los CSV.** Buscaba coordenadas con dos
+   puntos, pero una tabla de variantes pone cromosoma y posición en columnas
+   separadas. El propio archivo de submission pasaba sin marcarse. Corregido y
+   verificado contra ese mismo archivo.
 
 También se corrigió un error en el propio diseño del panel: "RZZ" no es un gen
 sino un complejo, y sus componentes son ZW10, ZWILCH y KNTC1. Y ClinVar muestra

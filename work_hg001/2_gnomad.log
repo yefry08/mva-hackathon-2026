@@ -1,0 +1,37 @@
+
+gen          total   comun  raraHOM  raraHET ausenteHOM   ausHET  lectura recesiva
+AURKB           15      13        0        0         0        2  2+ raras en het: posible compuesto, hay que fasear
+BIRC5           54      54        0        0         0        0  nada raro
+BUB1B           60      59        0        1         0        0  una sola rara en het: incompleto para recesivo
+BUB3             2       2        0        0         0        0  nada raro
+CDC20            6       6        0        0         0        0  nada raro
+CDCA8           52      51        0        0         0        1  una sola rara en het: incompleto para recesivo
+CENPA           35      35        0        0         0        0  nada raro
+CENPE          107     107        0        0         0        0  nada raro
+CENPF           58      56        0        1         0        1  2+ raras en het: posible compuesto, hay que fasear
+CEP57           93      89        0        0         0        4  2+ raras en het: posible compuesto, hay que fasear
+CHMP4C          23      22        0        0         0        1  una sola rara en het: incompleto para recesivo
+ESPL1           39      38        0        0         0        1  una sola rara en het: incompleto para recesivo
+INCENP          65      63        0        1         0        1  2+ raras en het: posible compuesto, hay que fasear
+KNL1            74      74        0        0         0        0  nada raro
+KNTC1           68      67        0        0         0        1  una sola rara en het: incompleto para recesivo
+MAD1L1         972     960        0        9         0        3  2+ raras en het: posible compuesto, hay que fasear
+MAD2L1           3       3        0        0         0        0  nada raro
+MAD2L1BP         2       2        0        0         0        0  nada raro
+NDC80          101      98        0        1         0        2  2+ raras en het: posible compuesto, hay que fasear
+NUF2            21      21        0        0         0        0  nada raro
+PLK1            12      12        0        0         0        0  nada raro
+PLK4             6       6        0        0         0        0  nada raro
+PTTG1            8       8        0        0         0        0  nada raro
+SGO1             2       2        0        0         0        0  nada raro
+SPC24           41      41        0        0         0        0  nada raro
+SPC25           34      34        0        0         0        0  nada raro
+SPDL1           29      28        0        1         0        0  una sola rara en het: incompleto para recesivo
+TRIP13          60      60        0        0         0        0  nada raro
+TTK            103     100        0        2         0        1  2+ raras en het: posible compuesto, hay que fasear
+ZW10            52      52        0        0         0        0  nada raro
+ZWILCH          79      78        0        1         0        0  una sola rara en het: incompleto para recesivo
+
+detalle por variante en work_hg001\gene_sweep.annot.tsv
+Umbral AF <= 0.001. 'ausente_en_gnomAD' no es sinonimo de raro: en region
+no codificante puede ser simple falta de cobertura del recurso.

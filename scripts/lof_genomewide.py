@@ -218,7 +218,7 @@ def main() -> int:
     # gnomAD solo para estos genes, por rangos de bytes.
     import sys as _sys
     _sys.path.insert(0, str(Path(__file__).resolve().parent))
-    from tabix_remote import RemoteTabix                     # noqa: E402
+    from tabix_remote import query_con_reintentos            # noqa: E402
     import re as _re
     AF_RE = _re.compile(r"(?:^|;)AF=([^;]+)")
     EX = ("https://storage.googleapis.com/gcp-public-data--gnomad/release/4.1/"
@@ -226,7 +226,7 @@ def main() -> int:
     MAX_AF = 0.001
 
     print("\nconsultando gnomAD para %d genes..." % len(vivos), flush=True)
-    resultados = []
+    resultados, sin_datos = [], []
     for g, v in sorted(vivos.items()):
         todas = v["hom"] + v["het"]
         chrom = todas[0][1]
@@ -234,15 +234,20 @@ def main() -> int:
         hi = max(x[2] for x in todas)
         af = {}
         try:
-            for line in RemoteTabix(EX % chrom).query("chr" + chrom, lo, hi):
-                f = line.split("\t")
-                if len(f) < 8:
-                    continue
-                m = AF_RE.search(f[7])
-                if m and m.group(1) not in (".", ""):
-                    af[(int(f[1]), f[3], f[4])] = float(m.group(1))
-        except Exception as e:                                # noqa: BLE001
-            print("  aviso: %s -> %s" % (g, e), file=_sys.stderr)
+            lineas = query_con_reintentos(EX % chrom, "chr" + chrom, lo, hi)
+        except RuntimeError as e:
+            # Antes: se avisaba y se seguia con af vacio, y cada variante del gen
+            # contaba como rara. Ahora el gen queda fuera y se reporta.
+            print("  SIN DATOS: %s -> %s" % (g, e), file=_sys.stderr)
+            sin_datos.append(g)
+            continue
+        for line in lineas:
+            f = line.split("\t")
+            if len(f) < 8:
+                continue
+            m = AF_RE.search(f[7])
+            if m and m.group(1) not in (".", ""):
+                af[(int(f[1]), f[3], f[4])] = float(m.group(1))
         def raro(x):
             return af.get((x[2], x[3], x[4]), 0.0) <= MAX_AF
         hom_raras = [x for x in v["hom"] if raro(x)]
@@ -257,7 +262,9 @@ def main() -> int:
         for g, h, e, cl in sorted(resultados, key=lambda r: (-r[1], -r[2])):
             out.write("%s\t%d\t%d\t%s\n" % (g, h, e, ",".join(cl)))
 
-    print("\ngenes con LoF bialelica **rara** (AF <= %g): %d\n" % (MAX_AF, len(resultados)))
+    print("\ngenes consultados sin respuesta de gnomAD: %d%s"
+          % (len(sin_datos), (" -> " + ", ".join(sin_datos)) if sin_datos else ""))
+    print("genes con LoF bialelica **rara** (AF <= %g): %d\n" % (MAX_AF, len(resultados)))
     if resultados:
         print("%-14s %5s %5s  %s" % ("gen", "hom", "het", "clases"))
         for g, h, e, cl in sorted(resultados, key=lambda r: (-r[1], -r[2]))[:30]:

@@ -20,6 +20,8 @@ experimento de refutación, su contraevidencia y su filtro de realismo pediátri
 
 **Nada de esto es consejo médico.**
 
+![Embudo de siete etapas del genoma completo a un gen, sin panel y sin ClinVar: de 5.012.204 variantes a BUB1B](reports/figures/fig1_embudo_ciego.svg)
+
 ## Documentos
 
 | Archivo | Qué contiene |

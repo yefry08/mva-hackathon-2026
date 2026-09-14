@@ -1,0 +1,40 @@
+gen          chr  span kb    PASS  homALT     het   indel  bloqPID   DPmed
+BUB1B         15     64.1      60       2      58       6        0   939.0
+CEP57         11     46.2       3       0       3       1        0  1007.3
+TRIP13         5     29.2       3       3       0       0        0   722.3
+MAD2L1BP       6      9.1       1       1       0       0        0   709.0
+BUB1           2     44.5       7       1       6       4        0   848.1
+BUB3          10     20.1      34       0      34       4        0   886.2
+MAD1L1         7    421.1     941     203     738      71        0   750.1
+MAD2L1         4     15.2      22      20       2       4        0   901.0
+TTK            6     41.9     105       1     104       9        0   960.3
+CDC20          1      8.2       3       3       0       0        0  1355.7
+KNL1          15     74.1       8       3       5       2        0   768.6
+ZW10          11     44.5      63      14      49       9        0   867.0
+KNTC1         12    103.1     118      35      83      17        0   861.9
+ZWILCH        15     48.8      35      32       3       4        0   933.2
+SPDL1          5     25.0      29      29       0       4        0  1104.2
+NDC80         18     49.1      99      36      63      13        0   969.8
+NUF2           1     37.8      71       9      62       9        0  1036.2
+SPC24         19     14.3      18       3      15       2        0   510.2
+SPC25          2     23.5      45      16      29       5        0   946.2
+CENPE          4     96.5      98       2      96       8        0  1014.3
+CENPF          1     65.4      40      36       4       3        0   914.2
+AURKB         17      9.8       5       0       5       1        0   766.2
+INCENP        11     33.2      41       1      40       3        0   843.5
+CDCA8          1     21.2      40       0      40       5        0   890.9
+BIRC5         17     15.4      58      13      45       3        0   796.7
+PLK1          16     15.5       1       0       1       0        0   925.0
+ESPL1         12     29.3      35      34       1       5        0  1150.4
+PTTG1          5     10.9       1       0       1       0        0  1058.0
+SGO1           3     20.7      59      18      41       6        0   934.4
+CENPA          2     12.5       1       1       0       0        0  1031.0
+PLK4           4     22.3       2       1       1       0        0  1419.0
+CHMP4C         8     31.1       8       8       0       1        0   868.6
+
+2054 variantes no de referencia escritas en work_hg005\gene_sweep.tsv
+525 genotipos homocigotos alternos en el panel.
+
+Ojo con la lectura: sin frecuencias poblacionales, la mayoria de esos
+homocigotos y heterocigotos son polimorfismos comunes. El paso que convierte
+esta tabla en candidatos es anotar gnomAD y quedarse con AF < 0.001.

@@ -163,6 +163,25 @@ class RemoteTabix:
         return lines[1:-1] if len(lines) > 2 else []
 
 
+def query_con_reintentos(url: str, chrom: str, start: int, end: int, intentos: int = 4):
+    """Consulta completa o excepcion. Nunca un resultado a medias.
+
+    Devuelve la lista entera de lineas solo si la consulta termino bien. Si falla
+    tras los reintentos, lanza la excepcion: quien llama decide, pero no puede
+    confundir "no pude consultar" con "la variante no esta en la base", que es
+    exactamente el error que tenian los primeros scripts.
+    """
+    import time
+    ultimo = None
+    for n in range(intentos):
+        try:
+            return list(RemoteTabix(url).query(chrom, start, end))
+        except Exception as e:                       # noqa: BLE001
+            ultimo = e
+            time.sleep(3 * 2 ** n)
+    raise RuntimeError("consulta fallida tras %d intentos: %s" % (intentos, ultimo))
+
+
 def main() -> int:
     if len(sys.argv) != 5:
         print(__doc__)

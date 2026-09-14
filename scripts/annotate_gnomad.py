@@ -21,6 +21,7 @@ from __future__ import annotations
 import argparse
 import re
 import sys
+import time
 from collections import defaultdict
 import os
 from pathlib import Path
@@ -56,27 +57,48 @@ def parse_info(info: str):
             "faf": grab(FAF_RE), "nhomalt": grab(NHOM_RE, int)}
 
 
-def fetch_gene(chrom: str, start: int, end: int):
-    """Devuelve {(pos, ref, alt): registro} combinando exomas y genomas."""
+def fetch_gene(chrom: str, start: int, end: int, intentos: int = 4):
+    """Devuelve ({(pos, ref, alt): registro}, ok) combinando exomas y genomas.
+
+    `ok` es True solo si las DOS fuentes respondieron completas. Importa mucho:
+    la version anterior, ante un fallo de red, avisaba por stderr y seguia, y
+    cada variante del gen quedaba clasificada como "ausente en gnomAD", es decir,
+    rara. Un corte de red se convertia en evidencia de variante rara. Se detecto
+    corriendo dos controles sanos que salieron con el 76% de sus variantes
+    "raras", cosa biologicamente imposible.
+    """
     table = {}
+    ok = True
     for url, source in ((EXOMES % chrom, "exome"), (GENOMES % chrom, "genome")):
-        try:
-            for line in RemoteTabix(url).query("chr" + chrom, start, end):
-                f = line.split("\t")
-                if len(f) < 8:
-                    continue
-                pos, ref, alt, info = int(f[1]), f[3], f[4], f[7]
-                rec = parse_info(info)
-                rec["source"] = source
-                key = (pos, ref, alt)
-                prev = table.get(key)
-                # Manda la fuente con mayor numero de alelos observados.
-                if prev is None or (rec["an"] or 0) > (prev["an"] or 0):
-                    table[key] = rec
-        except Exception as e:                      # noqa: BLE001
-            print("  aviso: %s chr%s:%d-%d -> %s" % (source, chrom, start, end, e),
-                  file=sys.stderr)
-    return table
+        exito = False
+        for n in range(intentos):
+            parcial = {}
+            try:
+                for line in RemoteTabix(url).query("chr" + chrom, start, end):
+                    f = line.split("\t")
+                    if len(f) < 8:
+                        continue
+                    pos, ref, alt, info = int(f[1]), f[3], f[4], f[7]
+                    rec = parse_info(info)
+                    rec["source"] = source
+                    parcial[(pos, ref, alt)] = rec
+                exito = True
+                break
+            except Exception as e:                  # noqa: BLE001
+                espera = 3 * 2 ** n
+                print("  aviso: %s chr%s:%d-%d intento %d/%d -> %s; reintento en %ds"
+                      % (source, chrom, start, end, n + 1, intentos, e, espera), file=sys.stderr)
+                time.sleep(espera)
+        if not exito:
+            ok = False
+            continue
+        # Solo se incorpora una consulta completa: un resultado a medias haria
+        # parecer ausentes las variantes que quedaron sin leer.
+        for key, rec in parcial.items():
+            prev = table.get(key)
+            if prev is None or (rec["an"] or 0) > (prev["an"] or 0):
+                table[key] = rec
+    return table, ok
 
 
 def main() -> int:
@@ -101,11 +123,14 @@ def main() -> int:
         s[1] = min(s[1], int(r["pos"]))
         s[2] = max(s[2], int(r["pos"]))
 
-    per_gene = {}
+    per_gene, fallidos = {}, []
     for gene, (chrom, lo, hi) in sorted(spans.items()):
         print("consultando gnomAD para %s (chr%s:%d-%d)" % (gene, chrom, lo, hi),
               file=sys.stderr)
-        per_gene[gene] = fetch_gene(chrom, lo, hi)
+        tabla, ok = fetch_gene(chrom, lo, hi)
+        per_gene[gene] = tabla
+        if not ok:
+            fallidos.append(gene)
 
     summary = defaultdict(lambda: {"rare_hom": 0, "rare_het": 0, "novel_hom": 0,
                                    "novel_het": 0, "common": 0, "total": 0})
@@ -119,7 +144,10 @@ def main() -> int:
             hom = len(gt) == 2 and gt[0] == gt[1] and gt[0] != "0"
             s = summary[r["gene"]]
             s["total"] += 1
-            if rec is None:
+            if rec is None and r["gene"] in fallidos:
+                # No se pudo consultar: no sabemos si es rara. Nunca se cuenta como tal.
+                clase = "sin_anotacion"
+            elif rec is None:
                 clase = "ausente_en_gnomAD"
                 s["novel_hom" if hom else "novel_het"] += 1
             elif rec["af"] is None or rec["af"] <= args.max_af:
@@ -156,6 +184,16 @@ def main() -> int:
     print("\ndetalle por variante en %s" % OUT.relative_to(ROOT))
     print("Umbral AF <= %g. 'ausente_en_gnomAD' no es sinonimo de raro: en region" % args.max_af)
     print("no codificante puede ser simple falta de cobertura del recurso.")
+    if fallidos:
+        # Codigo de salida distinto de cero a proposito: un pipeline que encadena
+        # pasos tiene que enterarse, no descubrirlo tres pasos despues.
+        print("\nERROR: gnomAD no respondio para %d genes tras reintentos: %s"
+              % (len(fallidos), ", ".join(fallidos)), file=sys.stderr)
+        print("Sus variantes quedan como 'sin_anotacion' y NO cuentan como raras.",
+              file=sys.stderr)
+        print("Resultado INCOMPLETO. Vuelve a correr este paso antes de interpretar nada.",
+              file=sys.stderr)
+        return 2
     return 0
 
 

@@ -29,7 +29,7 @@ HERE = Path(__file__).resolve().parent
 sys.path.insert(0, str(HERE))
 from lof_genomewide import (CODONS, WORK, default_vcf, genomic_to_tx,  # noqa: E402
                             load_sequences, load_structures, revcomp, SPLICE_CORE)
-from tabix_remote import RemoteTabix  # noqa: E402
+from tabix_remote import query_con_reintentos  # noqa: E402
 
 ROOT = HERE.parent
 OUT = WORK / "compound_genomewide.tsv"
@@ -129,21 +129,25 @@ def main() -> int:
     print("de ellos con al menos una truncante: %d" % len(con_lof), flush=True)
     print("consultando gnomAD para esos genes...", flush=True)
 
-    ranking = []
+    ranking, sin_datos = [], []
     for g, v in sorted(con_lof.items()):
         chrom = v[0][1]
         lo, hi = min(x[2] for x in v), max(x[2] for x in v)
         af = {}
         try:
-            for line in RemoteTabix(EXOMES % chrom).query("chr" + chrom, lo, hi):
-                f = line.split("\t")
-                if len(f) >= 8:
-                    m = AF_RE.search(f[7])
-                    if m and m.group(1) not in (".", ""):
-                        af[(int(f[1]), f[3], f[4])] = float(m.group(1))
-        except Exception as e:                            # noqa: BLE001
-            print("  aviso %s: %s" % (g, e), file=sys.stderr)
+            lineas = query_con_reintentos(EXOMES % chrom, "chr" + chrom, lo, hi)
+        except RuntimeError as e:
+            # Antes el gen se saltaba en silencio: un fallo de red podia sacar del
+            # ranking al candidato verdadero sin que nadie se enterara.
+            print("  SIN DATOS %s: %s" % (g, e), file=sys.stderr)
+            sin_datos.append(g)
             continue
+        for line in lineas:
+            f = line.split("\t")
+            if len(f) >= 8:
+                m = AF_RE.search(f[7])
+                if m and m.group(1) not in (".", ""):
+                    af[(int(f[1]), f[3], f[4])] = float(m.group(1))
         raras = [x for x in v if af.get((x[2], x[3], x[4]), 0.0) <= MAX_AF]
         lof_hom = [x for x in raras if x[0] in LOF and x[5] == "hom"]
         lof_het = [x for x in raras if x[0] in LOF and x[5] == "het"]
@@ -168,7 +172,11 @@ def main() -> int:
         for r in ranking:
             out.write("%s\t%s\t%d\t%d\t%d\n" % r)
 
-    print("\ngenes con patron recesivo compatible, todo raro (AF <= %g): %d\n" % (MAX_AF, len(ranking)))
+    print("\ngenes con truncante que gnomAD no pudo anotar: %d%s"
+          % (len(sin_datos), (" -> " + ", ".join(sin_datos)) if sin_datos else ""))
+    if sin_datos:
+        print("RESULTADO INCOMPLETO: esos genes no se evaluaron. Repetir antes de interpretar.")
+    print("genes con patron recesivo compatible, todo raro (AF <= %g): %d\n" % (MAX_AF, len(ranking)))
     print("%-14s %-22s %7s %7s %9s" % ("gen", "patron", "LoF hom", "LoF het", "miss het"))
     for r in ranking:
         marca = "   <- candidato del panel" if r[0] == "BUB1B" else ""
