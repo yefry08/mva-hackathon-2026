@@ -1,0 +1,177 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>MVA Hackathon 2026 · Pitch</title>
+<style>
+  /* Presentacion para grabar el video de 3 minutos. Abrir en el navegador, pantalla
+     completa (F11), y grabar la pantalla leyendo el guion.
+     Teclas: flechas o espacio = avanzar/retroceder · N = notas del narrador y
+     cronometro (ocultalas antes de grabar) · R = reiniciar cronometro. */
+  :root {
+    --bg: #fcfcfb; --ink: #0b0b0b; --ink2: #52514e; --rule: #e5e4df;
+    --band: #f3f2ee; --accent: #2a78d6;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; height: 100%; background: var(--bg); color: var(--ink);
+    font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; }
+  .deck { height: 100%; display: grid; place-items: center; }
+  .slide { display: none; width: min(96vw, calc(96vh * 16 / 9)); aspect-ratio: 16 / 9;
+    padding: 5.5% 6.5%; flex-direction: column; gap: 3%; }
+  .slide.on { display: flex; }
+  .kicker { font-size: clamp(12px, 1.25vw, 20px); letter-spacing: .12em; text-transform: uppercase;
+    color: var(--ink2); }
+  h1 { font-size: clamp(28px, 4.2vw, 68px); line-height: 1.08; margin: 0; font-weight: 650;
+    letter-spacing: -.01em; text-wrap: balance; }
+  h2 { font-size: clamp(22px, 2.9vw, 46px); line-height: 1.12; margin: 0; font-weight: 620;
+    text-wrap: balance; }
+  p.lead { font-size: clamp(16px, 1.7vw, 28px); line-height: 1.4; color: var(--ink2); margin: 0;
+    max-width: 62ch; text-wrap: pretty; }
+  .fig { flex: 1; min-height: 0; display: grid; place-items: center; }
+  /* Las figuras son SVG: escalan sin perder nitidez, asi que llenan el hueco
+     disponible en vez de quedarse a tamano nativo en una grabacion a 1080p. */
+  .fig img { width: 100%; height: 100%; object-fit: contain; }
+  .alleles { display: grid; grid-template-columns: 1fr 1fr; gap: 3%; margin-top: 2%; }
+  .allele { background: var(--band); border-radius: 12px; padding: 5% 6%;
+    border-left: 6px solid var(--accent); }
+  .allele .p { font-size: clamp(22px, 2.8vw, 46px); font-weight: 650;
+    font-variant-numeric: tabular-nums; }
+  .allele .what { font-size: clamp(14px, 1.45vw, 24px); color: var(--ink2); margin-top: .5em;
+    line-height: 1.35; }
+  .facts { display: grid; grid-template-columns: repeat(4, 1fr); gap: 2.5%; margin-top: 3%; }
+  .fact .n { font-size: clamp(26px, 3.6vw, 58px); font-weight: 650;
+    font-variant-numeric: tabular-nums; line-height: 1; }
+  .fact .l { font-size: clamp(12px, 1.25vw, 20px); color: var(--ink2); margin-top: .5em;
+    line-height: 1.3; }
+  .foot { margin-top: auto; font-size: clamp(11px, 1.05vw, 17px); color: var(--ink2);
+    border-top: 1px solid var(--rule); padding-top: 1.2%; }
+  .notes { position: fixed; left: 0; right: 0; bottom: 0; background: #1a1a19; color: #fff;
+    padding: 14px 22px; font-size: 17px; line-height: 1.45; display: none;
+    max-height: 38vh; overflow: auto; }
+  .notes.on { display: block; }
+  .notes .t { color: #c3c2b7; font-size: 14px; margin-bottom: 6px;
+    font-variant-numeric: tabular-nums; }
+  .notes .late { color: #e66767; }
+  .pager { position: fixed; right: 16px; top: 12px; font-size: 13px; color: var(--ink2);
+    font-variant-numeric: tabular-nums; }
+</style>
+</head>
+<body>
+<div class="pager" id="pager"></div>
+<main class="deck" id="deck">
+
+  <!-- 0:00 - 0:25 -->
+  <section class="slide" data-end="25"
+    data-notes="Hay un niño con aneuploidía variegada en mosaico. Menos de cincuenta personas en el mundo tienen este diagnóstico. Su familia hizo públicos sus datos para que alguien mirara. No vamos a decir que lo curamos. Vamos a enseñar qué encontramos, cómo lo comprobamos, y en qué puntos exactos el método se queda corto.">
+    <div class="kicker">Rare Disease, Real Kid · MVA Hackathon 2026</div>
+    <h1>Qué encontramos, cómo lo comprobamos y dónde se queda corto</h1>
+    <p class="lead">Aneuploidía variegada en mosaico. Menos de cincuenta personas en el mundo con
+      este diagnóstico, y una familia que hizo públicos sus datos para que alguien mirara.</p>
+    <div class="foot">No es consejo médico. Todo lo que sigue son hallazgos e hipótesis para validar.</div>
+  </section>
+
+  <!-- 0:25 - 1:05 -->
+  <section class="slide" data-end="65"
+    data-notes="Buscamos bajo modelo recesivo en los treinta y dos genes del checkpoint mitótico. Cero homocigotos raros. Pero un solo gen del panel tiene dos variantes raras en región codificante: BUB1B, el gen de MVA tipo 1. Una de las dos ya está en ClinVar como patogénica para esta enfermedad exacta: introduce un codón de parada, y verificamos contra la estructura exónica que el transcrito va a degradación. La otra es un missense presente en un alelo entre 1,46 millones. Un alelo nulo y un alelo hipomórfico: es la arquitectura que la literatura describe para esta enfermedad desde 2004.">
+    <div class="kicker">El hallazgo</div>
+    <h2>Heterocigoto compuesto en BUB1B, el gen de MVA tipo 1</h2>
+    <div class="alleles">
+      <div class="allele">
+        <div class="p">p.Leu737Ter</div>
+        <div class="what">Codón de parada, exón 17 de 23, con degradación por NMD verificada.
+          Patogénica en ClinVar para esta misma enfermedad.</div>
+      </div>
+      <div class="allele">
+        <div class="p">p.Asn1002Lys</div>
+        <div class="what">Missense en 1 de 1.461.878 alelos de gnomAD. Sin clasificar:
+          variante de significado incierto.</div>
+      </div>
+    </div>
+    <div class="foot">Un alelo nulo más uno hipomórfico: la arquitectura descrita para MVA1 desde 2004.</div>
+  </section>
+
+  <!-- 1:05 - 1:35 -->
+  <section class="slide" data-end="95"
+    data-notes="Un pipeline que solo encuentra la respuesta cuando le dices dónde mirar no demuestra nada. Así que lo corrimos ciego: todo el genoma, sin panel de genes y sin ClinVar. El script no sabe nada de la enfermedad. De cinco millones de variantes quedan tres genes con el patrón. Uno está en el cromosoma X de un varón, donde ese patrón es imposible; otro, en la región HLA, donde el alineamiento falla. El único que se sostiene es BUB1B.">
+    <div class="kicker">Sale sin que se lo digamos</div>
+    <div class="fig"><img src="../figures/fig1_embudo_ciego.svg"
+      alt="Embudo de 5.012.204 variantes a un único gen, BUB1B, sin panel ni ClinVar"></div>
+  </section>
+
+  <!-- 1:35 - 2:10 -->
+  <section class="slide" data-end="130"
+    data-notes="Aquí es donde muchos pipelines callan. Nosotros lo medimos. Para que las dos variantes causen la enfermedad tienen que estar en cromosomas distintos. Los bloques de fase de estos datos llegan como máximo a doscientos seis pares de bases. Las dos variantes están a diez mil novecientos once. Cincuenta y tres veces más lejos. Ninguna lectura de este experimento puede cubrir ambas: no es un fallo del análisis, la información no está en los datos. Y el segundo alelo, por criterios ACMG, es de significado incierto, y lo seguirá siendo aunque se resuelva la fase. Lo que lo resolvería es barato: genotipar a los padres.">
+    <div class="kicker">Lo que no podemos afirmar</div>
+    <div class="fig"><img src="../figures/fig2_fase.svg"
+      alt="Los bloques de fase llegan a 206 pb; las dos variantes están a 10.911 pb"></div>
+  </section>
+
+  <!-- 2:10 - 2:40 -->
+  <section class="slide" data-end="160"
+    data-notes="Corrimos el mismo pipeline, sin tocar un parámetro, sobre tres genomas públicos de adultos sanos, de tres ascendencias distintas. Resultado: cero candidatos en los tres. Y los controles nos corrigieron. Con uno solo parecía que tener una variante rara en región codificante ya delataba al paciente. El tercer control tiene dos, igual que él. Lo que de verdad separa es que haya dos en el mismo gen, y que una ya sea patogénica conocida. Eso, solo el paciente.">
+    <div class="kicker">Que no inventa diagnósticos</div>
+    <div class="fig"><img src="../figures/fig4_controles.svg"
+      alt="El paciente frente a tres genomas sanos: solo el paciente tiene dos raras codificantes en un gen y una patogénica conocida"></div>
+  </section>
+
+  <!-- 2:40 - 3:00 -->
+  <section class="slide" data-end="180"
+    data-notes="Todo esto corre en un portátil, con Python de la biblioteca estándar, sin nube, y sin que los datos del niño salgan de la máquina: un hook bloquea cualquier coordenada que intente salir, y lo probamos con treinta canarios. Coste de cómputo: cero. Para Track 2 proponemos tres hipótesis de reposicionamiento, cada una con el experimento que la refutaría. La más fuerte llega a una confianza de 0,35, porque ninguna tiene todavía un solo dato en esta enfermedad. Decirlo también es parte del trabajo.">
+    <div class="kicker">Cierre</div>
+    <h2>Reproducible en un portátil, sin que los datos salgan de la máquina</h2>
+    <div class="facts">
+      <div class="fact"><div class="n">0 $</div><div class="l">de cómputo, para el paciente y tres controles</div></div>
+      <div class="fact"><div class="n">30/30</div><div class="l">canarios bloqueados por el control de egreso</div></div>
+      <div class="fact"><div class="n">3</div><div class="l">hipótesis de reposicionamiento, cada una falsable</div></div>
+      <div class="fact"><div class="n">0,35</div><div class="l">confianza de la más fuerte: ninguna tiene aún datos en MVA</div></div>
+    </div>
+    <div class="foot">github.com/yefry08/mva-hackathon-2026 · Python de la biblioteca estándar · CC BY 4.0</div>
+  </section>
+
+</main>
+<div class="notes" id="notes"><div class="t" id="timer"></div><div id="ntext"></div></div>
+
+<script>
+  const slides = [...document.querySelectorAll('.slide')];
+  const notes = document.getElementById('notes');
+  const ntext = document.getElementById('ntext');
+  const timerEl = document.getElementById('timer');
+  const pager = document.getElementById('pager');
+  let i = 0, t0 = null;
+
+  function fmt(s) { return Math.floor(s / 60) + ':' + String(Math.floor(s % 60)).padStart(2, '0'); }
+
+  function show(n) {
+    i = Math.max(0, Math.min(slides.length - 1, n));
+    slides.forEach((s, k) => s.classList.toggle('on', k === i));
+    ntext.textContent = slides[i].dataset.notes || '';
+    pager.textContent = (i + 1) + ' / ' + slides.length;
+    if (t0 === null && i > 0) t0 = performance.now();
+    try { history.replaceState(null, '', '#' + (i + 1)); } catch (e) {}
+  }
+
+  function tick() {
+    const el = t0 === null ? 0 : (performance.now() - t0) / 1000;
+    const fin = Number(slides[i].dataset.end || 0);
+    const late = el > fin;
+    timerEl.innerHTML = 'transcurrido ' + fmt(el) + ' · esta diapositiva debería terminar en ' +
+      fmt(fin) + (late ? ' · <span class="late">vas tarde</span>' : '');
+    requestAnimationFrame(tick);
+  }
+
+  document.addEventListener('keydown', e => {
+    if (['ArrowRight', 'ArrowDown', 'PageDown', ' '].includes(e.key)) { e.preventDefault(); show(i + 1); }
+    else if (['ArrowLeft', 'ArrowUp', 'PageUp'].includes(e.key)) { e.preventDefault(); show(i - 1); }
+    else if (e.key === 'n' || e.key === 'N') notes.classList.toggle('on');
+    else if (e.key === 'r' || e.key === 'R') t0 = performance.now();
+    else if (e.key === 'Home') show(0);
+    else if (e.key === 'End') show(slides.length - 1);
+  });
+  document.addEventListener('click', e => { if (!notes.contains(e.target)) show(i + 1); });
+
+  show((parseInt(location.hash.slice(1), 10) || 1) - 1);
+  tick();
+</script>
+</body>
+</html>

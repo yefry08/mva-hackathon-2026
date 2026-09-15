@@ -60,15 +60,16 @@ para respirar y para que las imágenes asienten.
 
 ## [2:10 – 2:40] Que no inventa diagnósticos
 
-> Corrimos el mismo pipeline, sin tocar un parámetro, sobre HG002: un genoma
-> público de un adulto sano. Resultado: **cero candidatos**.
+> Corrimos el mismo pipeline, sin tocar un parámetro, sobre tres genomas públicos
+> de adultos sanos, de tres ascendencias distintas. Resultado: **cero candidatos
+> en los tres**.
 >
-> Y algo que solo se ve con el control: esa persona sana carga **cuarenta y cinco
-> variantes raras** en genes del checkpoint mitótico. Una más que el paciente. A
-> nivel de variante rara, los dos genomas son indistinguibles. Toda la
-> discriminación vive en la anotación funcional, no en el umbral de frecuencia.
+> Y los controles nos corrigieron. Con uno solo parecía que tener una variante
+> rara en región codificante ya delataba al paciente. **El tercer control tiene
+> dos, igual que él.** Lo que de verdad separa es que haya dos en el mismo gen, y
+> que una ya sea patogénica conocida. Eso, solo el paciente.
 
-*Imagen: la tabla comparativa de dos columnas.*
+*Imagen: `reports/figures/fig4_controles.svg`.*
 
 ## [2:40 – 3:00] Cierre
 

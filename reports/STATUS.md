@@ -9,8 +9,14 @@ arranque la corrida; por ahora lo mantiene el orquestador a mano.
 
 ## Dónde estamos
 
-Fase 0 (gates e infraestructura) en curso. Todavía no hay corrida multiagente: falta
-la API key comercial para que los workers puedan leer datos a nivel de variante.
+**Análisis cerrado; falta la entrega.** El candidato de Track 1 (heterocigoto
+compuesto en BUB1B) está identificado, clasificado y confirmado por tres rankings
+ciegos. Track 2 tiene mecanismo, reposicionamiento y escalabilidad con tres
+controles. Todo se hizo por la vía determinista, sin corrida multiagente: no hizo
+falta, y ningún agente leyó datos del paciente a nivel de variante.
+
+Pendiente, y en manos de una persona: grabar el video, enviar desde el Space y,
+tras el cierre, la purga de datos con su correo de atestación.
 
 ## Hecho
 
@@ -220,20 +226,22 @@ panel; no lo sustituye.
 
 ## Bloqueos
 
-1. **API key comercial de Anthropic** en `C:\mva\.env`. Sin eso, ningún agente lee
-   datos a nivel de variante y la fase de priorización no arranca.
-2. FutureHouse/Edison sin credencial ni términos verificados: Track 2 se queda en
-   literatura a nivel de gen hasta entonces.
+Ninguno técnico. Lo que queda es de una persona:
+
+1. **Grabar el video de 3 minutos.** Guion en `reports/VIDEO_SCRIPT.md` y
+   presentación lista para grabar en `reports/pitch/index.html`.
+2. **Enviar desde el Space** con la cuenta de Hugging Face.
+3. **Purga y atestación** antes del ~2026-11-23.
+
+Pendientes analíticos declarados, que no bloquean la entrega: SpliceAI o Pangolin
+sobre la intrónica profunda; genotipado parental para resolver la fase;
+compuestos de dos missense en genes sin ClinVar; Robin, LINCS y DepMap, que
+requieren credenciales.
 
 ## Presupuesto
 
 - Submissions: Track 1 **0/5 usadas** (`config.py` dice 6, la pestaña dice 5).
   Track 2 0/3.
-- LLM: sin corrida multiagente todavía.
-- Cómputo: 0 dólares. Todo se ha hecho en este laptop con Python puro.
-
-## Lo próximo
-
-1. Barrido de BAF por ventanas (corriendo).
-2. Reparar `dispatch.py` y regenerar la cola con el plan actualizado.
-3. Con la key: fast-path recesivo sobre el VCF y barrido de los 32 genes del SAC.
+- LLM sobre datos del paciente: 0. No hubo corrida multiagente.
+- Cómputo: 0 dólares. Paciente y tres controles, todo en un portátil con Python de
+  la biblioteca estándar.
