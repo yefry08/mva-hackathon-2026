@@ -43,6 +43,15 @@ PMID 42595739). La causa genética bialelica está establecida desde
 PMID 15475955, con el patrón de alelo truncante más alelo hipomórfico documentado
 en siete familias (PMID 16411201).
 
+**La esencialidad predice qué segundo alelo cabe esperar.** Cruzando los tres
+genes MVA con DepMap (1.258 líneas celulares): CEP57 y TRIP13 no son esenciales
+(0% y 1% de las líneas dependen de ellos) y en sus pacientes se describen dobles
+nulos (PMID 30035751, PMID 28553959). BUB1B es esencial en el 77% de las líneas, y
+lo descrito es un nulo más un alelo que conserva función. El paciente tiene
+exactamente eso: un nonsense y un missense. Son tres genes y líneas tumorales, así
+que es coherencia mecanística y no una ley, ni un criterio ACMG; pero es una
+predicción que el caso cumple y que no se buscó para que la cumpliera.
+
 ### Qué sostiene la hipótesis y qué no
 
 **A favor:** el gen correcto para el fenotipo; un alelo patogénico conocido con
@@ -67,10 +76,12 @@ alta en las dos llamadas (GQ 99).
 
 ### Control de calidad del propio método
 
-Se documentan dos errores encontrados y corregidos durante el análisis —un test
-de BAF que producía fracciones celulares idénticas en los 24 cromosomas, y un
-cribado de splicing que daba positivo en todo— junto con la tasa de fondo medida
-del método que los sustituyó. Detalle en `TRACK1_METHODS.md`.
+Se documentan cuatro errores encontrados y corregidos durante el análisis: un test
+de BAF que producía fracciones celulares idénticas en los 24 cromosomas; un
+cribado de splicing que daba positivo en todo; un fallo de red que se convertía en
+silencio en "variante rara", destapado por los genomas de control; y un control de
+privacidad ciego a los CSV. Ninguno cambió el hallazgo del paciente. Detalle en
+`TRACK1_METHODS.md`.
 
 ---
 
@@ -121,6 +132,15 @@ del fenotipo. El fármaco empujaría en la misma dirección que la enfermedad.
 Estos candidatos aparecen espontáneamente en cualquier búsqueda de literatura
 sobre aneuploidía —alisertib salió en las nuestras— y son exactamente los que un
 panel experto rechazaría. El filtro forma parte del método, no del prólogo.
+
+**Y el filtro se comprobó con datos, no solo con argumentos.** Consultando DGIdb y
+Open Targets para los 32 genes del panel, solo con símbolos de gen: **123
+interacciones fármaco-gen, todas inhibidoras salvo una vacuna, y ningún
+activador**. Solo 5 genes tienen candidatos en fase clínica, todos inhibidores
+oncológicos, y BUB1B no tiene ninguno. No existe nada, aprobado ni experimental,
+que empuje esta vía en la dirección que necesita un paciente con poco checkpoint.
+Por eso los tres candidatos actúan aguas abajo, sobre las consecuencias de la
+aneuploidía: aguas arriba no hay dónde apoyarse. Detalle en `REPURPOSING.md`.
 
 ---
 

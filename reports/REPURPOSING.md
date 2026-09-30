@@ -165,6 +165,33 @@ lectura:
 | Antimitóticos citotóxicos en general | Toxicidad de quimioterapia en una indicación no oncológica, en un paciente con predisposición tumoral por daño genómico. |
 | Letalidad sintética con CIN | Es una estrategia para matar células tumorales. En una enfermedad constitucional, las células diana son las del propio niño. |
 
+### El filtro, con datos: qué existe contra el checkpoint
+
+La tabla anterior es un argumento. Esto es la comprobación. Se consultaron DGIdb y
+Open Targets para los 32 genes del panel, solo con símbolos e identificadores de
+gen (`scripts/drug_landscape.py`, resultado en `drug_landscape.tsv`).
+
+| Qué se midió | Resultado |
+|---|---|
+| Interacciones fármaco-gen en DGIdb, todo el panel | **123 inhibidores, 1 vacuna, 0 activadores** |
+| Genes con candidatos en fase clínica (Open Targets) | 5 de 32: AURKB (18), PLK1 (8), PLK4 (3), TTK (2), BIRC5 (2) |
+| Candidatos clínicos contra **BUB1B** | **0**, y 0 interacciones en DGIdb |
+
+Todo lo que la farmacología conoce sobre esta vía **inhibe** el checkpoint. Un
+paciente cuyo problema es tener demasiado poco checkpoint no tiene nada que ganar
+ahí: no hay ningún activador, aprobado o experimental, de ninguno de los 32 genes.
+
+Eso convierte en obligada una decisión que parecía de estilo. Los tres candidatos de
+arriba actúan **aguas abajo**, sobre las consecuencias celulares de la aneuploidía,
+porque aguas arriba, sobre la vía misma, no hay nada que empuje en la dirección
+correcta.
+
+Una advertencia de lectura: DGIdb también lista 65 fármacos aprobados asociados a
+algún gen del panel, pero son en su mayoría citotóxicos oncológicos (cisplatino,
+doxorrubicina, docetaxel, citarabina) y asociaciones de evidencia débil extraídas
+de la literatura. El dato robusto es la dirección de las interacciones, no ese
+recuento.
+
 ---
 
 ## Lectura honesta del conjunto
@@ -178,7 +205,15 @@ El candidato 1 es el más fuerte por una razón concreta y no por entusiasmo: es
 también es concreta: la prueba se hizo con una herramienta genética, en un
 organismo envejecido, no con un fármaco en uno en desarrollo.
 
-**Pendiente y declarado:** no se corrieron Robin, LINCS/CMap ni DepMap, que
-requieren credenciales o recursos que esta corrida no tenía. Un cruce de firmas
-transcripcionales podría proponer candidatos que esta ruta, basada en literatura,
-no ve.
+**Pendiente y declarado, con la razón correcta.** Una versión anterior de este
+texto decía que Robin, LINCS y DepMap quedaban fuera "por falta de credenciales".
+Solo es cierto para Robin, que usa créditos de pago de Edison. DepMap y LINCS son
+gratuitos:
+
+- **DepMap** se usó al final, a través de Open Targets, pero para una pregunta
+  distinta de la letalidad sintética: la esencialidad de los genes MVA, que está
+  en `MECHANISM_BUB1B.md`. La letalidad sintética sigue descartada por la razón de
+  la tabla de arriba, no por acceso.
+- **LINCS/CMap no se corrió.** Un cruce de firmas transcripcionales contra el
+  knockdown de BUB1B podría proponer candidatos que esta ruta, basada en
+  literatura, no ve. Es el pendiente con más potencial de Track 2.

@@ -47,6 +47,34 @@ por mutaciones bialélicas en BUB1B (PMID 15475955). El patrón de alelo truncan
 más alelo hipomórfico está documentado en siete familias con separación
 prematura de cromátidas y checkpoint defectuoso (PMID 16411201).
 
+#### Por qué el segundo alelo tiene que conservar función: la esencialidad lo predice
+
+Hay tres genes MVA con arquitectura descrita, y no se parecen entre sí. Cruzándolos
+con la esencialidad medida en DepMap (1.258 líneas celulares, a través de Open
+Targets; `scripts/drug_landscape.py`) aparece un patrón:
+
+| Gen | Líneas que dependen de él | Arquitectura descrita en pacientes |
+|---|---|---|
+| CEP57 (MVA2) | **0%** · efecto mediano −0,08 | homocigoto truncante (PMID 30035751) |
+| TRIP13 (MVA3) | **1%** · efecto mediano −0,24 | pérdida de función bialélica (PMID 28553959) |
+| **BUB1B** (MVA1) | **77%** · efecto mediano −1,21 | truncante más alelo hipomórfico (PMID 16411201) |
+
+Donde el gen no es esencial, el doble nulo se tolera y es lo que se ve. Donde sí lo
+es, la célula no puede dividirse sin él, y lo que se describe es un alelo nulo
+acompañado de otro que conserva algo de función. gnomAD va en el mismo sentido:
+ninguna de las dos variantes del paciente aparece en homocigosis en 1,46 millones
+de alelos.
+
+**El paciente encaja en la predicción para BUB1B:** p.Leu737Ter es nulo, con NMD
+verificado, y p.Asn1002Lys es un missense, el tipo de cambio que típicamente reduce
+función sin abolirla. Un segundo alelo truncante habría sido, bajo este modelo,
+más difícil de explicar que el que tiene.
+
+Límites de este razonamiento, que conviene decir antes que el panel: son tres
+genes, no una ley; DepMap mide dependencia en líneas tumorales que proliferan, no
+en un embrión; y no aporta ningún criterio ACMG. Es coherencia mecanística, no
+evidencia de patogenicidad del missense.
+
 ### 5. Checkpoint débil → missegregación → aneuploidía en mosaico
 
 Si el freno mitótico es insuficiente, los errores de segregación se acumulan
@@ -132,6 +160,8 @@ Verificadas contra PubMed, 2026-09-12.
 | 23242215 | Más BubR1 protege de aneuploidía y cáncer |
 | 15475955 | Mutaciones bialélicas en BUB1B causan MVA1 |
 | 16411201 | Siete familias, alelo monoalélico y checkpoint defectuoso |
+| 30035751 | Homocigoto truncante en CEP57 en MVA2 (verificada 2026-09-12) |
+| 28553959 | Pérdida de función bialélica en TRIP13, MVA3 y Wilms (verificada 2026-09-30) |
 | 18548531 | Heterogeneidad clínica y genética de MVA |
 | 16059936 | La microcefalia no es obligatoria en MVA |
 | 9916837 | MVA con rabdomiosarcoma embrionario |

@@ -31,7 +31,9 @@ experimento de refutación, su contraevidencia y su filtro de realismo pediátri
 | `reports/MECHANISM_BUB1B.md` | Cadena mecanística, ocho eslabones, y dónde falla |
 | `reports/TRACK2_REPORT.md` | Reporte contra la rúbrica del panel |
 | `reports/REPURPOSING.md` | Fichas de evidencia de los candidatos |
-| `reports/SCALABILITY.md` | El mismo pipeline sobre HG002, como control negativo |
+| `reports/SCALABILITY.md` | El mismo pipeline sobre tres genomas sanos, como controles negativos |
+| `reports/drug_landscape.tsv` | Esencialidad (DepMap) y fármacos conocidos para los 32 genes del panel |
+| `reports/pitch/index.html` | Presentación para grabar el video de 3 minutos |
 | `reports/STATUS.md` | Estado y bitácora |
 
 ## Reproducir

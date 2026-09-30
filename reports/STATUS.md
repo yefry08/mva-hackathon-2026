@@ -206,8 +206,15 @@ antimitóticos en general. Aparecen en toda búsqueda de aneuploidía porque se 
 único con respaldo hoy son los protocolos de vigilancia oncológica (PMID
 39264246), y el reporte lo dice antes de proponer nada.
 
-**Pendiente y declarado:** Robin, LINCS/CMap y DepMap no se corrieron por falta de
-credenciales.
+**Paisaje farmacológico y esencialidad** (`drug_landscape.py`, fuentes públicas y
+gratuitas, solo símbolos de gen): en DGIdb, el panel entero suma 123 interacciones
+inhibidoras y ningún activador; BUB1B no tiene ningún candidato clínico. Y la
+esencialidad de DepMap predice la arquitectura alélica de los tres genes MVA
+(detalle en `MECHANISM_BUB1B.md`).
+
+**Pendiente y declarado:** Robin (créditos de pago de Edison) y LINCS/CMap, que
+es gratuito y simplemente no se corrió. Una versión anterior de este estado decía
+que DepMap y LINCS requerían credenciales; era falso.
 
 ## Barrido genomico de LoF bialelica (sin ClinVar)
 
@@ -235,8 +242,8 @@ Ninguno técnico. Lo que queda es de una persona:
 
 Pendientes analíticos declarados, que no bloquean la entrega: SpliceAI o Pangolin
 sobre la intrónica profunda; genotipado parental para resolver la fase;
-compuestos de dos missense en genes sin ClinVar; Robin, LINCS y DepMap, que
-requieren credenciales.
+compuestos de dos missense en genes sin ClinVar; LINCS/CMap (gratuito, no
+corrido) y Robin (de pago).
 
 ## Presupuesto
 
