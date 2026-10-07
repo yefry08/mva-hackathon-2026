@@ -1,0 +1,101 @@
+{
+  "firmas_knockout": 5212,
+  "fondo_genes": 9440,
+  "knockouts_nulo_reversion": 40,
+  "semilla": 2026,
+  "top": 50,
+  "shrna_lineas_total": 8,
+  "shrna_lineas_knockdown_verificado": [
+    "A375",
+    "A549"
+  ],
+  "compuestos_reversion_bub1b": 28,
+  "especificos_nulo_le_5pct": [
+    "brd-k09549677",
+    "d-64131",
+    "parbendazole",
+    "gw-843682x",
+    "cay10618",
+    "pentobarbital",
+    "yk 4-279",
+    "17757146",
+    "brd-k41859756",
+    "naltrexone hydrochloride",
+    "evodiamine",
+    "jnk-in-5a",
+    "jnk-9l"
+  ],
+  "firmas_compartidas_crispr_shrna": [
+    {
+      "compuesto": "pentobarbital",
+      "sig_id": "CPC005_A549_24H:BRD-A44448661:10.0",
+      "placa": "CPC005_A549_24H",
+      "genes_que_sostienen_el_match_shrna": [
+        "BUB1B",
+        "GNAS"
+      ]
+    },
+    {
+      "compuesto": "naltrexone hydrochloride",
+      "sig_id": "CPC005_A549_24H:BRD-A83855350:10.0",
+      "placa": "CPC005_A549_24H",
+      "genes_que_sostienen_el_match_shrna": [
+        "BUB1B",
+        "GNAS"
+      ]
+    }
+  ],
+  "p_firmas_compartidas_vs_knockouts": 0.10638297872340426,
+  "pipeline_ingenuo_top10": [
+    {
+      "compuesto": "ic 261",
+      "firmas_top50": 2,
+      "fase_chembl": "no_en_chembl"
+    },
+    {
+      "compuesto": "mebendazole",
+      "firmas_top50": 2,
+      "fase_chembl": "4"
+    },
+    {
+      "compuesto": "brd-k90382497",
+      "firmas_top50": 2,
+      "fase_chembl": "sin_nombre"
+    },
+    {
+      "compuesto": "albendazole",
+      "firmas_top50": 2,
+      "fase_chembl": "4"
+    },
+    {
+      "compuesto": "brd-k54256913",
+      "firmas_top50": 2,
+      "fase_chembl": "sin_nombre"
+    },
+    {
+      "compuesto": "vincristine",
+      "firmas_top50": 1,
+      "fase_chembl": "4"
+    },
+    {
+      "compuesto": "vinorelbine",
+      "firmas_top50": 1,
+      "fase_chembl": "4"
+    },
+    {
+      "compuesto": "oxibendazole",
+      "firmas_top50": 1,
+      "fase_chembl": "2"
+    },
+    {
+      "compuesto": "docetaxel",
+      "firmas_top50": 1,
+      "fase_chembl": "4"
+    },
+    {
+      "compuesto": "brd-k05323277",
+      "firmas_top50": 1,
+      "fase_chembl": "sin_nombre"
+    }
+  ]
+}

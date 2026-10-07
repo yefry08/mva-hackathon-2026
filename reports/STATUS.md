@@ -212,9 +212,23 @@ inhibidoras y ningún activador; BUB1B no tiene ningún candidato clínico. Y la
 esencialidad de DepMap predice la arquitectura alélica de los tres genes MVA
 (detalle en `MECHANISM_BUB1B.md`).
 
-**Pendiente y declarado:** Robin (créditos de pago de Edison) y LINCS/CMap, que
-es gratuito y simplemente no se corrió. Una versión anterior de este estado decía
-que DepMap y LINCS requerían credenciales; era falso.
+**Conectividad LINCS L1000** (`cmap_reversal.py`, 2026-10-07, fuentes públicas,
+solo símbolos de gen y nombres de compuesto): ningún candidato sobrevive a los
+controles.
+- Los reversores frecuentes (HSP90, CDK) aparecen igual en knockouts al azar.
+- Los dos aprobados "específicos" (pentobarbital, naltrexona) son un efecto de
+  lote: una placa, dos genes.
+- Sin controles habría salido mebendazol, que es un veneno del huso y está
+  contraindicado por mecanismo (PMID 23812934).
+- La firma del knockout CRISPR de BUB1B activa interferón, p53 y apoptosis (top
+  0,1-3% de 5.211 knockouts), compartido con BUB1, ZWINT y TTK, y no se replica
+  por shRNA.
+
+Detalle en `REPURPOSING.md` y `MECHANISM_BUB1B.md`.
+
+**Pendiente y declarado:** Robin (créditos de pago de Edison). Una versión
+anterior de este estado decía que DepMap y LINCS requerían credenciales; era
+falso, y los dos se usaron.
 
 ## Barrido genomico de LoF bialelica (sin ClinVar)
 
@@ -242,8 +256,7 @@ Ninguno técnico. Lo que queda es de una persona:
 
 Pendientes analíticos declarados, que no bloquean la entrega: SpliceAI o Pangolin
 sobre la intrónica profunda; genotipado parental para resolver la fase;
-compuestos de dos missense en genes sin ClinVar; LINCS/CMap (gratuito, no
-corrido) y Robin (de pago).
+compuestos de dos missense en genes sin ClinVar; Robin (de pago).
 
 ## Presupuesto
 

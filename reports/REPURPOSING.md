@@ -5,7 +5,7 @@ eficacia en MVA. Son hipótesis derivadas del mecanismo, cada una con el
 experimento concreto que la refutaría. Nada de esto debe llegar a un paciente sin
 pasar antes por ese experimento y por un ensayo clínico.
 
-Citas verificadas contra PubMed el 2026-09-12.
+Citas verificadas contra PubMed el 2026-09-12; PMID 23812934, el 2026-10-07.
 
 ---
 
@@ -192,6 +192,41 @@ doxorrubicina, docetaxel, citarabina) y asociaciones de evidencia débil extraí
 de la literatura. El dato robusto es la dirección de las interacciones, no ese
 recuento.
 
+### El filtro, con firmas: qué propone una búsqueda por conectividad
+
+La literatura solo encuentra lo que alguien ya pensó. La conectividad transcripcional
+(LINCS L1000) puede proponer lo que nadie pensó: toma la firma de una célula sin
+BUB1B y busca compuestos que la inviertan. La corrimos entera, con controles en cada
+paso (`scripts/cmap_reversal.py`; salidas en `cmap_signature.tsv`,
+`cmap_reversal.tsv` y `cmap_summary.json`). **Ningún candidato sobrevive**, y por qué
+mueren es más útil que una lista.
+
+| Lo que propone la búsqueda | Por qué no pasa |
+|---|---|
+| Inhibidores de HSP90 (geldanamicina, 8 firmas de 50; NVP-AUY922) e inhibidores de CDK (BMS-387032, CGP-60474, AZD-5438) | Son los que más se repiten, pero revierten igual la pérdida de genes ajenos al checkpoint: aparecen en el 15-42% de 40 knockouts tomados al azar. Revierten "célula enferma", no "célula sin BUB1B". Además son antiproliferativos. |
+| Pentobarbital y naltrexona, aprobados y aparentemente específicos (≤5% del nulo), y además presentes en la réplica por shRNA | Las dos firmas salen de la misma placa (`CPC005_A549_24H`), y en la réplica el emparejamiento se apoya en dos genes: BUB1B y GNAS. Dos fármacos sin relación que coinciden en la misma placa son un efecto de lote, no farmacología. Y el 11% de los knockouts al azar comparte igual o más firmas con la réplica. |
+| **Mebendazol, albendazol, vincristina, vinorelbina, docetaxel**, todos aprobados | Es lo que sale si se toma la firma shRNA de las 8 líneas sin comprobar que el knockdown funcionó: BUB1B solo baja en 2 de ellas. Son venenos de microtúbulos. |
+
+La última fila es la que importa. Un pipeline de conectividad sin filtros habría
+puesto **mebendazol** arriba de la lista: aprobado, barato, de uso pediátrico, y uno
+de los favoritos clásicos del reposicionamiento. En este paciente empujaría en la
+dirección del daño. Con BubR1 reducido, la célula no logra sostener la parada
+mitótica ante un veneno del huso: completa la mitosis igualmente, con separación
+prematura de cromátidas (PMID 23812934, en células de leucemia). Y la respuesta
+anormal a colcemida de las células de pacientes con PCS/MVA se corrige al restaurar
+BUB1B (PMID 16411201). El fármaco que "revierte la firma" lo hace porque detiene la
+mitosis en células sanas, y en las del paciente no la detendría.
+
+Tres lecciones, que valen más allá de este caso:
+
+1. **Comprobar que la perturbación existe.** En 6 de las 8 líneas shRNA, BUB1B no
+   está entre los genes que bajan. Un consenso sobre ellas no es una firma de pérdida
+   de BUB1B.
+2. **Comparar contra knockouts al azar.** Sin ese nulo, los inhibidores de HSP90
+   parecen un hallazgo.
+3. **Mirar en qué genes se apoya el emparejamiento.** Un emparejamiento que depende
+   de dos genes y de una placa no es una firma.
+
 ---
 
 ## Lectura honesta del conjunto
@@ -214,6 +249,6 @@ gratuitos:
   distinta de la letalidad sintética: la esencialidad de los genes MVA, que está
   en `MECHANISM_BUB1B.md`. La letalidad sintética sigue descartada por la razón de
   la tabla de arriba, no por acceso.
-- **LINCS/CMap no se corrió.** Un cruce de firmas transcripcionales contra el
-  knockdown de BUB1B podría proponer candidatos que esta ruta, basada en
-  literatura, no ve. Es el pendiente con más potencial de Track 2.
+- **LINCS/CMap se corrió al final** y no aporta ningún candidato que resista sus
+  controles; está en la sección "El filtro, con firmas". Lo que sí aporta es una
+  firma de referencia de la pérdida de BUB1B, que está en `MECHANISM_BUB1B.md`.

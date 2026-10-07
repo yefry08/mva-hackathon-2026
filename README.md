@@ -33,6 +33,8 @@ experimento de refutación, su contraevidencia y su filtro de realismo pediátri
 | `reports/REPURPOSING.md` | Fichas de evidencia de los candidatos |
 | `reports/SCALABILITY.md` | El mismo pipeline sobre tres genomas sanos, como controles negativos |
 | `reports/drug_landscape.tsv` | Esencialidad (DepMap) y fármacos conocidos para los 32 genes del panel |
+| `reports/cmap_signature.tsv` | Firma transcripcional de la pérdida de BUB1B (LINCS), contra 5.211 knockouts |
+| `reports/cmap_reversal.tsv`, `cmap_summary.json` | Búsqueda por conectividad, sus controles y por qué ningún candidato sobrevive |
 | `reports/pitch/index.html` | Presentación para grabar el video de 3 minutos |
 | `reports/STATUS.md` | Estado y bitácora |
 

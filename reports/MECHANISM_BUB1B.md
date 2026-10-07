@@ -104,6 +104,42 @@ missegregación activan la vía cGAS-STING (PMID 29342134), que en cánceres
 cromosómicamente inestables sostiene una señalización inflamatoria dependiente de
 IL-6 (PMID 35705809).
 
+#### Lo que muestra el transcriptoma de una célula sin BUB1B
+
+Esa rama inflamatoria se puede mirar con datos públicos. La firma consenso de
+knockout CRISPR de BUB1B en LINCS L1000 (247 genes que suben y 244 que bajan),
+enriquecida contra MSigDB Hallmark y comparada con las otras 5.211 firmas de
+knockout de la misma librería (`scripts/cmap_reversal.py`, `cmap_signature.tsv`):
+
+| Programa | Sentido | p | Knockouts con igual o más enriquecimiento |
+|---|---|---|---|
+| Respuesta a interferón gamma | sube | 4e-18 | 2,5% |
+| Respuesta a interferón alfa | sube | 4e-17 | 3,1% |
+| TNF-alfa vía NF-kB | sube | 3e-17 | 2,3% |
+| Apoptosis | sube | 6e-13 | 0,1% |
+| Vía de p53 | sube | 3e-09 | 0,9% |
+| Checkpoint G2-M | baja | 1e-12 | 0,8% |
+
+La respuesta a interferón no es lo que le pasa a cualquier gen esencial cuando se
+apaga: solo el 3% de los knockouts la muestran con esa fuerza. Y separa al módulo de
+señalización del checkpoint del resto de la mitosis. La comparten BUB1 (p 1e-12),
+ZWINT (1e-12) y, más débil, TTK (0,005); no la muestran AURKB, PLK1, CENPE ni
+NDC80. Es lo que predice la cadena: perder la señal del checkpoint produce
+missegregación y micronúcleos, mientras que perder AURKB o PLK1 detiene la mitosis.
+
+**Lo que no sostiene, dicho antes de que lo diga el panel:**
+
+- **No se replica con shRNA.** En el knockdown por shRNA, en las 2 líneas donde se
+  verificó que BUB1B baja, la respuesta a interferón no aparece (0 genes). Hay dos
+  lecturas, y estos datos no permiten elegir: que la respuesta depende de la
+  técnica, o que depende de la dosis. Un knockout pierde la proteína entera; un
+  knockdown deja proteína residual, que es lo más parecido al paciente. Si es la
+  segunda, la rama inflamatoria pesa menos en este niño de lo que la literatura
+  tumoral sugiere.
+- **El interferón no prueba cGAS-STING.** Es compatible, no específico. La prueba
+  es el experimento de la tabla de abajo.
+- **Son líneas tumorales.** La misma reserva del resto de este paso.
+
 **Este es el punto de entrada para reposicionamiento:** no corregir la variante,
 sino actuar sobre las consecuencias celulares que el mecanismo predice.
 
@@ -140,9 +176,14 @@ Un mecanismo que no predice nada medible no sirve para diseñar experimentos.
 | Micronúcleos aumentados | conteo de micronúcleos por inmunofluorescencia |
 | Reclutamiento de PP2A-B56 alterado | inmunoprecipitación del cinetocoro en célula que expresa el missense |
 | Firma inflamatoria por cGAS-STING | expresión de genes de interferón tipo I e IL-6 |
+| Firma de pérdida de BUB1B, y en qué grado | RNA-seq de fibroblastos del paciente puntuado contra los 247/244 genes de `cmap_signature.tsv` |
 
-Las dos últimas son las que discriminan la hipótesis específica de p.Asn1002Lys
-frente a la genérica de "menos BUBR1".
+Las filas de PP2A-B56 y cGAS-STING son las que discriminan la hipótesis específica
+de p.Asn1002Lys frente a la genérica de "menos BUBR1". La última fila mide dosis. Si
+las células del paciente reproducen la firma del knockout, con su respuesta a
+interferón, la rama inflamatoria cuenta en este niño. Si se parecen al knockdown,
+sin interferón, cuenta poco, y el candidato senolítico gana peso relativo frente a
+cualquier idea antiinflamatoria.
 
 ---
 
@@ -160,6 +201,7 @@ Verificadas contra PubMed, 2026-09-12.
 | 23242215 | Más BubR1 protege de aneuploidía y cáncer |
 | 15475955 | Mutaciones bialélicas en BUB1B causan MVA1 |
 | 16411201 | Siete familias, alelo monoalélico y checkpoint defectuoso |
+| 23812934 | BubR1 bajo: la célula no sostiene la parada ante venenos del huso (verificada 2026-10-07) |
 | 30035751 | Homocigoto truncante en CEP57 en MVA2 (verificada 2026-09-12) |
 | 28553959 | Pérdida de función bialélica en TRIP13, MVA3 y Wilms (verificada 2026-09-30) |
 | 18548531 | Heterogeneidad clínica y genética de MVA |

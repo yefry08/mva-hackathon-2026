@@ -142,6 +142,25 @@ que empuje esta vía en la dirección que necesita un paciente con poco checkpoi
 Por eso los tres candidatos actúan aguas abajo, sobre las consecuencias de la
 aneuploidía: aguas arriba no hay dónde apoyarse. Detalle en `REPURPOSING.md`.
 
+**El filtro también se probó contra una búsqueda que no parte de la literatura.**
+La conectividad transcripcional (LINCS L1000) busca compuestos que inviertan la
+firma de una célula sin BUB1B. La corrimos con tres controles: 40 knockouts al azar
+como nulo, una réplica por shRNA limitada a las líneas donde BUB1B baja de verdad,
+y la comprobación de en qué genes se apoya cada coincidencia. **Ningún candidato
+sobrevive:**
+
+- Los más repetidos, inhibidores de HSP90 y de CDK, revierten igual la pérdida de
+  genes ajenos al checkpoint (15-42% del nulo).
+- Los dos aprobados que parecían específicos, pentobarbital y naltrexona, salen de
+  una sola placa y coinciden por dos genes: es un efecto de lote.
+
+Lo revelador es lo que sale **sin** esos controles: mebendazol, albendazol,
+vincristina, docetaxel. Todos aprobados, y el mebendazol es barato, pediátrico y
+un clásico del reposicionamiento. Son venenos del huso, y una célula con BubR1
+bajo no sostiene la parada mitótica ante ellos (PMID 23812934). Un pipeline sin
+filtro le habría propuesto a este niño un fármaco que empuja hacia más
+missegregación. El resultado negativo, con sus razones, es el aporte.
+
 ---
 
 ## 3. Innovación (25%)
@@ -166,6 +185,13 @@ Tres aportes metodológicos que sobreviven al caso concreto:
    de andamiaje en vez de como quinasa cambia la hipótesis funcional y cambia el
    experimento que la falsa: no se mide actividad catalítica, se mide
    reclutamiento de PP2A-B56.
+4. **Una firma de referencia de la pérdida de BUB1B, con su nulo.** El knockout
+   CRISPR activa interferón, p53 y apoptosis con una fuerza que solo alcanza el
+   0,1-3% de las 5.211 firmas de knockout restantes. El interferón lo comparten
+   BUB1, ZWINT y TTK, que señalizan el checkpoint, y no AURKB ni PLK1. No se
+   replica con shRNA, lo que deja abierta una pregunta de dosis que el RNA-seq de
+   fibroblastos del paciente puede responder: ¿se parecen al knockout o al
+   knockdown? Detalle en `MECHANISM_BUB1B.md`.
 
 ---
 
@@ -227,6 +253,8 @@ En orden de coste y de rendimiento esperado:
    micronúcleos, tasa de separación prematura de cromátidas. Es el experimento que
    discrimina entre los tres candidatos de reposicionamiento y el que, si sale
    negativo, mata el más fuerte de los tres antes de gastar un euro en fármacos.
+   Añadir RNA-seq de esas mismas células cuesta poco y se puntúa directamente
+   contra la firma de `cmap_signature.tsv`.
 
 ## Divulgación de uso de IA
 

@@ -1,0 +1,29 @@
+compuesto	firmas_top50	mejor_score	lineas	frac_nulo	frac_via	firmas_replica_shrna	fase_chembl
+brd-k09549677	1	0.049	SKB	0.000	0.000	0	sin_nombre
+d-64131	1	0.047	VCAP	0.000	0.000	0	no_en_chembl
+parbendazole	1	0.047	HT29	0.000	0.000	0	2
+gw-843682x	1	0.047	SKBR3	0.000	0.000	0	no_en_chembl
+cay10618	1	0.045	MDST8	0.000	0.000	0	no_en_chembl
+pentobarbital	1	0.045	A549	0.025	0.000	1	4
+yk 4-279	1	0.043	HT29	0.025	0.286	0	no_en_chembl
+17757146	1	0.043	HT29	0.025	0.000	0	no_en_chembl
+brd-k41859756	1	0.062	HA1E	0.050	0.000	0	sin_nombre
+naltrexone hydrochloride	1	0.043	A549	0.050	0.000	1	4
+evodiamine	1	0.043	HT29	0.050	0.000	0	0
+jnk-in-5a	1	0.043	HCC515	0.050	0.000	0	no_en_chembl
+jnk-9l	1	0.043	MDAMB231	0.050	0.000	0	no_en_chembl
+azd-5438	3	0.051	HS578T,MCF10A,MDAMB231	0.075	0.286	0	1
+prostaglandin a1	2	0.055	CL34,NCIH1836	0.075	0.000	0	0
+brd-k09635314	1	0.045	NCIH1694	0.075	0.000	0	sin_nombre
+pha-793887	1	0.045	HS578T	0.075	0.143	0	1
+bi-2536	1	0.047	HS578T	0.100	0.286	0	2
+at-7519	1	0.047	HS578T	0.125	0.286	0	2
+pf-562271	1	0.043	LNCAP	0.125	0.143	0	no_en_chembl
+nvp-auy922	4	0.047	HA1E,HS578T	0.150	0.143	0	2
+radicicol	2	0.053	HS578T,MCF10A	0.150	0.000	0	0
+parthenolide	1	0.043	MDST8	0.200	0.286	0	2
+bms-387032	5	0.051	HME1,MCF10A,MDAMB231	0.250	0.143	0	1
+a443654	2	0.057	HS578T,MCF10A	0.325	0.571	0	no_en_chembl
+geldanamycin	8	0.066	A549,HA1E,HS578T,SKB	0.400	0.429	0	2
+mitoxantrone	1	0.049	HS578T	0.400	0.429	0	4
+cgp-60474	4	0.053	HME1,HS578T,MCF10A,MDAMB231	0.425	0.429	0	no_en_chembl
